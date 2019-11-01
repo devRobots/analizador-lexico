@@ -34,6 +34,7 @@ public class Token {
 	final public static String OPERADORLOGICO = "Operador logico";
 	final public static String IDENTIFICADOR = "Identificador";
 	final public static String TERMINAL = "Terminal";
+	final public static String PALABRARESERVADA = "Palabra reservada";
 	final public static String NORECONOCIDO = "No reconocido";
 
 	// -----------------------------------------------------------------

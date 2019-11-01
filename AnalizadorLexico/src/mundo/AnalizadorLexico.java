@@ -117,6 +117,11 @@ public class AnalizadorLexico {
 		if (token != null)
 			return token;
 
+		// Intenta extraer una palabra reservada
+		token = extraerPalabraReservada(cod, i);
+		if (token != null)
+			return token;
+
 		// Extrae un token no reconocido
 		token = extraerNoReconocido(cod, i);
 		return token;
@@ -264,6 +269,7 @@ public class AnalizadorLexico {
 			j = i + 1;
 
 			if (j < cod.length() && cod.charAt(j) == '|') {
+
 				j++;
 				lex = cod.substring(i, j);
 				Token token = new Token(lex, Token.CADENA, j);
@@ -574,12 +580,10 @@ public class AnalizadorLexico {
 						j++;
 					} while (j < cod.length() && esLetra(cod.charAt(j)));
 
-					if (j < cod.length()) {
-						j++;
-						lex = cod.substring(i, j);
-						Token token = new Token(lex, Token.IDENTIFICADOR, j);
-						return token;
-					}
+					lex = cod.substring(i, j);
+					Token token = new Token(lex, Token.IDENTIFICADOR, j);
+					return token;
+
 				}
 				if (j < cod.length() && esLetraMinuscula(cod.charAt(j))) {
 
@@ -587,12 +591,10 @@ public class AnalizadorLexico {
 						j++;
 					} while (j < cod.length() && esLetra(cod.charAt(j)));
 
-					if (j < cod.length()) {
-						j++;
-						lex = cod.substring(i, j);
-						Token token = new Token(lex, Token.IDENTIFICADOR, j);
-						return token;
-					}
+					lex = cod.substring(i, j);
+					Token token = new Token(lex, Token.IDENTIFICADOR, j);
+					return token;
+
 				}
 			}
 			if (j < cod.length() && esLetraMayuscula(cod.charAt(j))) {
@@ -601,13 +603,10 @@ public class AnalizadorLexico {
 					j++;
 				} while (j < cod.length() && esLetraMayuscula(cod.charAt(j)));
 
-				if (j < cod.length()) {
+				lex = cod.substring(i, j);
+				Token token = new Token(lex, Token.IDENTIFICADOR, j);
+				return token;
 
-					j++;
-					lex = cod.substring(i, j);
-					Token token = new Token(lex, Token.IDENTIFICADOR, j);
-					return token;
-				}
 			}
 			if (j < cod.length() && esLetraMinuscula(cod.charAt(j))) {
 
@@ -615,12 +614,10 @@ public class AnalizadorLexico {
 					j++;
 				} while (j < cod.length() && (esDigito(cod.charAt(j)) || esLetraMinuscula(cod.charAt(j))));
 
-				if (j < cod.length()) {
-					j++;
-					lex = cod.substring(i, j);
-					Token token = new Token(lex, Token.IDENTIFICADOR, j);
-					return token;
-				}
+				lex = cod.substring(i, j);
+				Token token = new Token(lex, Token.IDENTIFICADOR, j);
+				return token;
+
 			}
 		}
 		return null;
@@ -639,6 +636,305 @@ public class AnalizadorLexico {
 			lex = cod.substring(i, j);
 			Token token = new Token(lex, Token.IDENTIFICADOR, j);
 			return token;
+		}
+
+		return null;
+	}
+
+	/**
+	 * 
+	 */
+	public Token extraerAgrupaciones(String cod, int i) {
+
+		return null;
+	}
+
+	/**
+	 * Intenta extraer una palabra reservada de la cadena cod a partir de la
+	 * posici�n i, bas�ndose en el Aut�mata
+	 * 
+	 * @param cod
+	 *            - c�digo al cual se le va a intentar extraer una palabra
+	 *            reservada - codigo!=null
+	 * @param i
+	 *            - posici�n a partir de la cual se va a intentar extraer una
+	 *            palabra reservada - 0<=indice<codigo.length()
+	 * @return el token palabra reservada o NULL, si el token en la posici�n dada
+	 *         no es una palabra reservada. El Token se compone de el lexema, el
+	 *         tipo y la posici�n del siguiente lexema.
+	 */
+	public Token extraerPalabraReservada(String cod, int i) {
+
+		String lex;
+		int j;
+
+		// Palabra reservada prototype (class)
+		if (cod.charAt(i) == 'p') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'r') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'o') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 't') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 'o') {
+							j++;
+							if (j < cod.length() && cod.charAt(j) == 't') {
+								j++;
+								if (j < cod.length() && cod.charAt(j) == 'y') {
+									j++;
+									if (j < cod.length() && cod.charAt(j) == 'p') {
+										j++;
+										if (j < cod.length() && cod.charAt(j) == 'e') {
+
+											j++;
+											lex = cod.substring(i, j);
+											Token token = new Token(lex, Token.PALABRARESERVADA, j);
+											return token;
+
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Palabra reservada insert (import)
+		if (cod.charAt(i) == 'i') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'n') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 's') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 'e') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 'r') {
+							j++;
+							if (j < cod.length() && cod.charAt(j) == 't') {
+
+								j++;
+								lex = cod.substring(i, j);
+								Token token = new Token(lex, Token.PALABRARESERVADA, j);
+								return token;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Palabra reservada box (package)
+		if (cod.charAt(i) == 'b') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'o') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'x') {
+
+					j++;
+					lex = cod.substring(i, j);
+					Token token = new Token(lex, Token.PALABRARESERVADA, j);
+					return token;
+				}
+			}
+		}
+
+		// Palabra reservada constant (final)
+		if (cod.charAt(i) == 'c') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'o') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'n') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 's') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 't') {
+							j++;
+							if (j < cod.length() && cod.charAt(j) == 'a') {
+								j++;
+								if (j < cod.length() && cod.charAt(j) == 'n') {
+									j++;
+									if (j < cod.length() && cod.charAt(j) == 't') {
+
+										j++;
+										lex = cod.substring(i, j);
+										Token token = new Token(lex, Token.PALABRARESERVADA, j);
+										return token;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Palabra reservada back (return/break)
+		if (cod.charAt(i) == 'b') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'a') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'c') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 'k') {
+
+						j++;
+						lex = cod.substring(i, j);
+						Token token = new Token(lex, Token.PALABRARESERVADA, j);
+						return token;
+					}
+				}
+			}
+		}
+
+		// Palabra reservada decision (if)
+		if (cod.charAt(i) == 'd') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'e') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'c') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 'i') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 's') {
+							j++;
+							if (j < cod.length() && cod.charAt(j) == 'i') {
+								j++;
+								if (j < cod.length() && cod.charAt(j) == 'o') {
+									j++;
+									if (j < cod.length() && cod.charAt(j) == 'n') {
+
+										j++;
+										lex = cod.substring(i, j);
+										Token token = new Token(lex, Token.PALABRARESERVADA, j);
+										return token;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Palabra reservada other (else/default)
+		if (cod.charAt(i) == 'o') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 't') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'h') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 'e') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 'r') {
+
+							j++;
+							lex = cod.substring(i, j);
+							Token token = new Token(lex, Token.PALABRARESERVADA, j);
+							return token;
+						}
+					}
+				}
+			}
+		}
+
+		// Palabra reservada iterator (for)
+		if (cod.charAt(i) == 'i') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 't') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'e') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 'r') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 'a') {
+							j++;
+							if (j < cod.length() && cod.charAt(j) == 't') {
+								j++;
+								if (j < cod.length() && cod.charAt(j) == 'o') {
+									j++;
+									if (j < cod.length() && cod.charAt(j) == 'r') {
+
+										j++;
+										lex = cod.substring(i, j);
+										Token token = new Token(lex, Token.PALABRARESERVADA, j);
+										return token;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Palabra reservada during (while)
+		if (cod.charAt(i) == 'd') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'u') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'r') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 'i') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 'n') {
+							j++;
+							if (j < cod.length() && cod.charAt(j) == 'g') {
+
+								j++;
+								lex = cod.substring(i, j);
+								Token token = new Token(lex, Token.PALABRARESERVADA, j);
+								return token;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Palabra reservada option (switch)
+		if (cod.charAt(i) == 'o') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'p') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 't') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 'i') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 'o') {
+							j++;
+							if (j < cod.length() && cod.charAt(j) == 'n') {
+
+								j++;
+								lex = cod.substring(i, j);
+								Token token = new Token(lex, Token.PALABRARESERVADA, j);
+								return token;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Palabra reservada next (continue)
+		if (cod.charAt(i) == 'n') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'e') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'x') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 't') {
+
+						j++;
+						lex = cod.substring(i, j);
+						Token token = new Token(lex, Token.PALABRARESERVADA, j);
+						return token;
+
+					}
+				}
+			}
 		}
 
 		return null;
