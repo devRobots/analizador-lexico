@@ -41,7 +41,7 @@ public class DialogoTokens extends JDialog
     /**
      * La lista donde se muestran los tokens
      */
-    private JList<String> listaTokens;
+    private JList<Object> listaTokens;
 
     // -----------------------------------------------------------------
     // Constructores
@@ -57,7 +57,7 @@ public class DialogoTokens extends JDialog
         scrollDesplazamiento = new JScrollPane( );
 
         // Lista donde se almacenaran los tokens
-        listaTokens = new JList<String>( );
+        listaTokens = new JList<Object>( );
         listaTokens.setSelectionMode( javax.swing.ListSelectionModel.SINGLE_SELECTION );
 
         // Scroll que desplegar� la lista de tokens
@@ -77,6 +77,6 @@ public class DialogoTokens extends JDialog
      */
     public void cambiarListaTokens( ArrayList<String> vectorTokensEditados )
     {
-        listaTokens.setListData( (String[]) vectorTokensEditados.toArray( ) );
+        listaTokens.setListData( (Object[]) vectorTokensEditados.toArray( ) );
     }
 }

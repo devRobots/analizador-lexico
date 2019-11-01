@@ -17,93 +17,100 @@ package mundo;
  */
 
 public class Token {
-    // -----------------------------------------------------------------
-    // Constantes
-    // -----------------------------------------------------------------
-    /**
-     * Constantes para modelar los posibles tipos de token que se van a analizar
-     */
-    final public static String ENTERO = "Entero";
-    final public static String OPERADORADITIVO = "Operador aditivo";
-    final public static String OPERADORASIGNACION = "Operador de asignaciï¿½n";
-    final public static String IDENTIFICADOR = "Identificador";
-    final public static String NORECONOCIDO = "No reconocido";
- 
-    // -----------------------------------------------------------------
-    // Atributos
-    // -----------------------------------------------------------------
-    /**
-     * Lexema
-     */
-    private String lexema;
+	// -----------------------------------------------------------------
+	// Constantes
+	// -----------------------------------------------------------------
+	/**
+	 * Constantes para modelar los posibles tipos de token que se van a analizar
+	 */
+	final public static String ENTERO = "Entero";
+	final public static String REAL = "Real";
+	final public static String CARACTER = "Caracter";
+	final public static String CADENA = "Cadena";
+	final public static String BOOLEANO = "Booleano";
+	final public static String OPERADORARITMETICO = "Operador aritmético";
+	final public static String OPERADORASIGNACION = "Operador de asignación";
+	final public static String OPERADORRELACIONAL = "Operador relacional";
+	final public static String OPERADORLOGICO = "Operador logico";
+	final public static String IDENTIFICADOR = "Identificador";
+	final public static String TERMINAL = "Terminal";
+	final public static String NORECONOCIDO = "No reconocido";
 
-    /**
-     * tipo
-     */
-    private String tipo;
+	// -----------------------------------------------------------------
+	// Atributos
+	// -----------------------------------------------------------------
+	/**
+	 * Lexema
+	 */
+	private String lexema;
 
-    /**
-     * posiciï¿½n del siguiente lexema
-     */
-    private int indiceSiguiente;
+	/**
+	 * tipo
+	 */
+	private String tipo;
 
-    // -----------------------------------------------------------------
-    // Constructores
-    // -----------------------------------------------------------------
-    /**
-     * Constructor de un token
-     * @param elLexema - cadena - laCadena != null
-     * @param elTipo - tipo del token - elTipo != null
-     * @param elIndiceSiguiente - posiciï¿½n del siguiente token - laPosicionSiguiente > 0
-     */
-    public Token( String elLexema, String elTipo, int elIndiceSiguiente )
-    {
-        lexema = elLexema;
-        tipo = elTipo;
-        indiceSiguiente = elIndiceSiguiente;
-    }
+	/**
+	 * posiciï¿½n del siguiente lexema
+	 */
+	private int indiceSiguiente;
 
-    // -----------------------------------------------------------------
-    // Mï¿½todos
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
+	// Constructores
+	// -----------------------------------------------------------------
+	/**
+	 * Constructor de un token
+	 * 
+	 * @param elLexema
+	 *            - cadena - laCadena != null
+	 * @param elTipo
+	 *            - tipo del token - elTipo != null
+	 * @param elIndiceSiguiente
+	 *            - posiciï¿½n del siguiente token - laPosicionSiguiente > 0
+	 */
+	public Token(String elLexema, String elTipo, int elIndiceSiguiente) {
+		lexema = elLexema;
+		tipo = elTipo;
+		indiceSiguiente = elIndiceSiguiente;
+	}
 
-    /**
-     * Entrega la informaciï¿½n del token
-     * @return Descripciï¿½n del token
-     */
-    public String darDescripcion( )
-    {
-        return "Token: " + lexema + "     Tipo: " + tipo + "     ï¿½ndice del siguiente: " + indiceSiguiente;
-    }
+	// -----------------------------------------------------------------
+	// Mï¿½todos
+	// -----------------------------------------------------------------
 
-    /**
-     * Mï¿½todo que retorna el lexema del token
-     * @return el lexema del token
-     */
-    public String darLexema( )
-    {
-        return lexema;
-    }
+	/**
+	 * Entrega la informaciï¿½n del token
+	 * 
+	 * @return Descripciï¿½n del token
+	 */
+	public String darDescripcion() {
+		return "Token: " + lexema + "     Tipo: " + tipo + "     ï¿½ndice del siguiente: " + indiceSiguiente;
+	}
 
-    /**
-     * Mï¿½todo que retorna la posiciï¿½n del siguiente lexema
-     * @return posiciï¿½n del siguiente token
-     */
-    public int darIndiceSiguiente( )
-    {
-        return indiceSiguiente;
-    }
+	/**
+	 * Mï¿½todo que retorna el lexema del token
+	 * 
+	 * @return el lexema del token
+	 */
+	public String darLexema() {
+		return lexema;
+	}
 
-    /**
-     * Mï¿½todo que retorna el tipo del token
-     * @return el tipo del token
-     */
-    public String darTipo( )
-    {
-        return tipo;
-    }
+	/**
+	 * Mï¿½todo que retorna la posiciï¿½n del siguiente lexema
+	 * 
+	 * @return posiciï¿½n del siguiente token
+	 */
+	public int darIndiceSiguiente() {
+		return indiceSiguiente;
+	}
 
-
-
+	/**
+	 * Mï¿½todo que retorna el tipo del token
+	 * 
+	 * @return el tipo del token
+	 */
+	public String darTipo() {
+		return tipo;
+	}
 
 }
