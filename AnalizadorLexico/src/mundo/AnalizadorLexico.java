@@ -122,6 +122,31 @@ public class AnalizadorLexico {
 		if (token != null)
 			return token;
 
+		// Intenta extraer un tipo de dato
+		token = extraerTipoDeDato(cod, i);
+		if (token != null)
+			return token;
+
+		// Intenta extraer una asignación de sentencia
+		token = extraerAsignacionDeSentencia(cod, i);
+		if (token != null)
+			return token;
+
+		// Intenta extraer una asignación de agrupación
+		token = extraerAsignacionDeAgrupacion(cod, i);
+		if (token != null)
+			return token;
+
+		// Intenta extraer un comentario de línea
+		token = extraerComentarioDeLinea(cod, i);
+		if (token != null)
+			return token;
+
+		// Intenta extraer un comentario de línea
+		token = extraerComentarioDeBloque(cod, i);
+		if (token != null)
+			return token;
+
 		// Extrae un token no reconocido
 		token = extraerNoReconocido(cod, i);
 		return token;
@@ -282,11 +307,12 @@ public class AnalizadorLexico {
 					j++;
 				} while (j < cod.length() && cod.charAt(j) != '|' && esSimbolo(cod.charAt(j)));
 
-				j++;
-				lex = cod.substring(i, j);
-				Token token = new Token(lex, Token.CADENA, j);
-				return token;
-
+				if (j < cod.length() && cod.charAt(j) == '|') {
+					j++;
+					lex = cod.substring(i, j);
+					Token token = new Token(lex, Token.CADENA, j);
+					return token;
+				}
 			}
 		}
 		return null;
@@ -581,7 +607,7 @@ public class AnalizadorLexico {
 					} while (j < cod.length() && esLetra(cod.charAt(j)));
 
 					lex = cod.substring(i, j);
-					Token token = new Token(lex, Token.IDENTIFICADOR, j);
+					Token token = new Token(lex, Token.IDENTIFICADORDECLASE, j);
 					return token;
 
 				}
@@ -592,7 +618,7 @@ public class AnalizadorLexico {
 					} while (j < cod.length() && esLetra(cod.charAt(j)));
 
 					lex = cod.substring(i, j);
-					Token token = new Token(lex, Token.IDENTIFICADOR, j);
+					Token token = new Token(lex, Token.IDENTIFICADORDEMETODO, j);
 					return token;
 
 				}
@@ -604,7 +630,7 @@ public class AnalizadorLexico {
 				} while (j < cod.length() && esLetraMayuscula(cod.charAt(j)));
 
 				lex = cod.substring(i, j);
-				Token token = new Token(lex, Token.IDENTIFICADOR, j);
+				Token token = new Token(lex, Token.IDENTIFICADORDECONSTANTE, j);
 				return token;
 
 			}
@@ -615,7 +641,7 @@ public class AnalizadorLexico {
 				} while (j < cod.length() && (esDigito(cod.charAt(j)) || esLetraMinuscula(cod.charAt(j))));
 
 				lex = cod.substring(i, j);
-				Token token = new Token(lex, Token.IDENTIFICADOR, j);
+				Token token = new Token(lex, Token.IDENTIFICADORDEVARIABLE, j);
 				return token;
 
 			}
@@ -634,7 +660,7 @@ public class AnalizadorLexico {
 		if (cod.charAt(i) == '\n') {
 			j = i + 1;
 			lex = cod.substring(i, j);
-			Token token = new Token(lex, Token.IDENTIFICADOR, j);
+			Token token = new Token(lex, Token.IDENTIFICADORDECLASE, j);
 			return token;
 		}
 
@@ -936,7 +962,302 @@ public class AnalizadorLexico {
 				}
 			}
 		}
+		return null;
+	}
 
+	/**
+	 * Intenta extraer un tipo de dato de la cadena cod a partir de la posiciï¿½n i,
+	 * basï¿½ndose en el Autï¿½mata
+	 * 
+	 * @param cod
+	 *            - cï¿½digo al cual se le va a intentar extraer el tipo de dato -
+	 *            codigo!=null
+	 * @param i
+	 *            - posiciï¿½n a partir de la cual se va a intentar extraer el tipo
+	 *            de dato - 0<=i<codigo.length()
+	 * @return el token tipo de dato o NULL, si el token en la posiciï¿½n dada no es
+	 *         un operador relacional.El Token se compone de el lexema, el tipo y la
+	 *         posiciï¿½n del siguiente lexema.
+	 */
+	public Token extraerTipoDeDato(String cod, int i) {
+
+		String lex;
+		int j;
+
+		// Tipo de dato (int)
+		if (cod.charAt(i) == 'n') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'u') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'm') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 'b') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 'e') {
+							j++;
+							if (j < cod.length() && cod.charAt(j) == 'r') {
+
+								j++;
+								lex = cod.substring(i, j);
+								Token token = new Token(lex, Token.TIPODEDATO, j);
+								return token;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Tipo de dato (double)
+		if (cod.charAt(i) == 'd') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'e') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'c') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 'i') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 'm') {
+							j++;
+							if (j < cod.length() && cod.charAt(j) == 'a') {
+								j++;
+								if (j < cod.length() && cod.charAt(j) == 'l') {
+
+									j++;
+									lex = cod.substring(i, j);
+									Token token = new Token(lex, Token.TIPODEDATO, j);
+									return token;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Tipo de dato (char)
+		if (cod.charAt(i) == 's') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'y') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'm') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 'b') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 'o') {
+							j++;
+							if (j < cod.length() && cod.charAt(j) == 'l') {
+
+								j++;
+								lex = cod.substring(i, j);
+								Token token = new Token(lex, Token.TIPODEDATO, j);
+								return token;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Tipo de dato (String)
+		if (cod.charAt(i) == 'm') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'e') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 's') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 's') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 'a') {
+							j++;
+							if (j < cod.length() && cod.charAt(j) == 'g') {
+								j++;
+								if (j < cod.length() && cod.charAt(j) == 'e') {
+
+									j++;
+									lex = cod.substring(i, j);
+									Token token = new Token(lex, Token.TIPODEDATO, j);
+									return token;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Tipo de dato (boolean)
+		if (cod.charAt(i) == 'l') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'o') {
+				j++;
+				if (j < cod.length() && cod.charAt(j) == 'g') {
+					j++;
+					if (j < cod.length() && cod.charAt(j) == 'i') {
+						j++;
+						if (j < cod.length() && cod.charAt(j) == 'c') {
+
+							j++;
+							lex = cod.substring(i, j);
+							Token token = new Token(lex, Token.TIPODEDATO, j);
+							return token;
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Intenta extraer una asignación de sentencia de la cadena cod a partir de la
+	 * posiciï¿½n i, basï¿½ndose en el Autï¿½mata
+	 * 
+	 * @param cod
+	 *            - cï¿½digo al cual se le va a intentar extraer la asignación de
+	 *            sentencia - codigo!=null
+	 * @param i
+	 *            - posiciï¿½n a partir de la cual se va a intentar extraer la
+	 *            asignación de sentencia - 0<=i<codigo.length()
+	 * @return el token asignación de sentencia o NULL, si el token en la posiciï¿½n
+	 *         dada no es un operador relacional.El Token se compone de el lexema,
+	 *         el tipo y la posiciï¿½n del siguiente lexema.
+	 */
+	public Token extraerAsignacionDeSentencia(String cod, int i) {
+		String lex;
+		int j;
+
+		if (cod.charAt(i) == '¿') {
+
+			j = i + 1;
+			lex = cod.substring(i, j);
+			Token token = new Token(lex, Token.ASIGNACIONDESENTENCIAAPERTURA, j);
+			return token;
+		}
+
+		if (cod.charAt(i) == '?') {
+
+			j = i + 1;
+			lex = cod.substring(i, j);
+			Token token = new Token(lex, Token.ASIGNACIONDESENTENCIACIERRE, j);
+			return token;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Intenta extraer una asignación de agrupación de la cadena cod a partir de la
+	 * posiciï¿½n i, basï¿½ndose en el Autï¿½mata
+	 * 
+	 * @param cod
+	 *            - cï¿½digo al cual se le va a intentar extraer la asignación de
+	 *            agrupación - codigo!=null
+	 * @param i
+	 *            - posiciï¿½n a partir de la cual se va a intentar extraer la
+	 *            asignación de sentencia - 0<=i<codigo.length()
+	 * @return el token asignación de sentencia o NULL, si el token en la posiciï¿½n
+	 *         dada no es una asignación de agrupación.El Token se compone de el
+	 *         lexema, el tipo y la posiciï¿½n del siguiente lexema.
+	 */
+	public Token extraerAsignacionDeAgrupacion(String cod, int i) {
+		String lex;
+		int j;
+
+		if (cod.charAt(i) == '[') {
+
+			j = i + 1;
+			lex = cod.substring(i, j);
+			Token token = new Token(lex, Token.ASIGNACIONDEAGRUPACIONAPERTURA, j);
+			return token;
+		}
+
+		if (cod.charAt(i) == ']') {
+
+			j = i + 1;
+			lex = cod.substring(i, j);
+			Token token = new Token(lex, Token.ASIGNACIONDEAGRUPACIONCIERRE, j);
+			return token;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Intenta extraer un comentario de línea de la cadena cod a partir de la
+	 * posiciï¿½n i, basï¿½ndose en el Autï¿½mata
+	 * 
+	 * @param cod
+	 *            - cï¿½digo al cual se le va a intentar extraer un comentario de
+	 *            línea - codigo!=null
+	 * @param i
+	 *            - posiciï¿½n a partir de la cual se va a intentar extraer un
+	 *            comentario de línea - 0<=i<codigo.length()
+	 * 
+	 * @return el token comentario de líena o NULL, si el token en la posiciï¿½n
+	 *         dada no es un comentario de línea.El Token se compone de el lexema,
+	 *         el tipo y la posiciï¿½n del siguiente lexema.
+	 */
+	public Token extraerComentarioDeLinea(String cod, int i) {
+		String lex;
+		int j;
+
+		if (cod.charAt(i) == '!') {
+
+			j = i + 1;
+
+			if (j < cod.length() && esSimbolo(cod.charAt(j))) {
+
+				do {
+					j++;
+				} while (j < cod.length() && esSimbolo(cod.charAt(j)));
+
+				lex = cod.substring(i, j);
+				Token token = new Token(lex, Token.COMENTARIODELINEA, j);
+				return token;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Intenta extraer un comentario de bloque de la cadena cod a partir de la
+	 * posiciï¿½n i, basï¿½ndose en el Autï¿½mata
+	 * 
+	 * @param cod
+	 *            - cï¿½digo al cual se le va a intentar extraer un comentario de
+	 *            bloque - codigo!=null
+	 * @param i
+	 *            - posiciï¿½n a partir de la cual se va a intentar extraer un
+	 *            comentario de bloque - 0<=i<codigo.length()
+	 * 
+	 * @return el token comentario de líena o NULL, si el token en la posiciï¿½n
+	 *         dada no es un comentario de bloque.El Token se compone de el lexema,
+	 *         el tipo y la posiciï¿½n del siguiente lexema.
+	 */
+	public Token extraerComentarioDeBloque(String cod, int i) {
+		String lex;
+		int j;
+
+		if (cod.charAt(i) == '(') {
+
+			j = i + 1;
+
+			if (j < cod.length() && esSimbolo(cod.charAt(j))) {
+
+				do {
+					j++;
+				} while (j < cod.length() && esSimbolo(cod.charAt(j)) && cod.charAt(j) != ')');
+
+				if (j < cod.length() && cod.charAt(j) == ')') {
+
+					j++;
+					lex = cod.substring(i, j);
+					Token token = new Token(lex, Token.COMENTARIODEBLOQUE, j);
+					return token;
+				}
+			}
+		}
 		return null;
 	}
 
@@ -958,6 +1279,7 @@ public class AnalizadorLexico {
 	public Token extraerNoReconocido(String cod, int i) {
 		String lexema = cod.substring(i, i + 1);
 		int j = i + 1;
+
 		Token token = new Token(lexema, Token.NORECONOCIDO, j);
 		return token;
 	}

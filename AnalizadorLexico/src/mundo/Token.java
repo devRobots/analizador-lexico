@@ -32,9 +32,19 @@ public class Token {
 	final public static String OPERADORASIGNACION = "Operador de asignación";
 	final public static String OPERADORRELACIONAL = "Operador relacional";
 	final public static String OPERADORLOGICO = "Operador logico";
-	final public static String IDENTIFICADOR = "Identificador";
+	final public static String IDENTIFICADORDECLASE = "Identificador de clase";
+	final public static String IDENTIFICADORDEMETODO = "Identificador de métodos";
+	final public static String IDENTIFICADORDECONSTANTE = "Identificador de constantes";
+	final public static String IDENTIFICADORDEVARIABLE = "Identificador de variable";
 	final public static String TERMINAL = "Terminal";
 	final public static String PALABRARESERVADA = "Palabra reservada";
+	final public static String TIPODEDATO = "Tipo de dato";
+	final public static String ASIGNACIONDESENTENCIAAPERTURA = "Asignación de sentencia de apertura";
+	final public static String ASIGNACIONDESENTENCIACIERRE = "Asignación de sentencia de cierre";
+	final public static String ASIGNACIONDEAGRUPACIONAPERTURA = "Asignación de agrupación de apertura";
+	final public static String ASIGNACIONDEAGRUPACIONCIERRE = "Asignación de agrupación de cierre";
+	final public static String COMENTARIODELINEA = "Comentario de línea";
+	final public static String COMENTARIODEBLOQUE = "Comentario de bloque";
 	final public static String NORECONOCIDO = "No reconocido";
 
 	// -----------------------------------------------------------------
