@@ -720,7 +720,7 @@ public class AnalizadorLexico {
 			j = i + 1;
 			if (j < cod.length() && cod.charAt(j) == 'o') {
 				j++;
-				if (j < cod.charAt(j) && cod.charAt(i) == 'n') {
+				if (j < cod.charAt(j) && cod.charAt(j) == 'n') {
 					j++;
 					if (j < cod.length() && cod.charAt(j) == 'e') {
 
@@ -905,18 +905,6 @@ public class AnalizadorLexico {
 						return token;
 					}
 				}
-			}
-		}
-
-		// Palabra reservada it (this)
-		if (cod.charAt(i) == 'i') {
-			j = i + 1;
-			if (j < cod.length() && cod.charAt(j) == 't') {
-
-				j++;
-				lex = cod.substring(i, j);
-				Token token = new Token(lex, Token.PALABRARESERVADA, j);
-				return token;
 			}
 		}
 
