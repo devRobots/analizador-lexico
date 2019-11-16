@@ -45,6 +45,7 @@ public class Token {
 	final public static String ASIGNACIONDEAGRUPACIONCIERRE = "Asignación de agrupación de cierre";
 	final public static String COMENTARIODELINEA = "Comentario de línea";
 	final public static String COMENTARIODEBLOQUE = "Comentario de bloque";
+	final public static String SECUENCIADEESCAPE = "Secuencia de escape";
 	final public static String NORECONOCIDO = "No reconocido";
 
 	// -----------------------------------------------------------------
@@ -76,7 +77,7 @@ public class Token {
 	 * @param elTipo
 	 *            - tipo del token - elTipo != null
 	 * @param elIndiceSiguiente
-	 *            - posiciï¿½n del siguiente token - laPosicionSiguiente > 0
+	 *            - posición del siguiente token - laPosicionSiguiente > 0
 	 */
 	public Token(String elLexema, String elTipo, int elIndiceSiguiente) {
 		lexema = elLexema;
@@ -89,16 +90,16 @@ public class Token {
 	// -----------------------------------------------------------------
 
 	/**
-	 * Entrega la informaciï¿½n del token
+	 * Entrega la información del token
 	 * 
-	 * @return Descripciï¿½n del token
+	 * @return Descripción del token
 	 */
 	public String darDescripcion() {
-		return "Token: " + lexema + "     Tipo: " + tipo + "     ï¿½ndice del siguiente: " + indiceSiguiente;
+		return "Token: " + lexema + "     Tipo: " + tipo + "     índice del siguiente: " + indiceSiguiente;
 	}
 
 	/**
-	 * Mï¿½todo que retorna el lexema del token
+	 * Método que retorna el lexema del token
 	 * 
 	 * @return el lexema del token
 	 */
@@ -107,16 +108,16 @@ public class Token {
 	}
 
 	/**
-	 * Mï¿½todo que retorna la posiciï¿½n del siguiente lexema
+	 * Método que retorna la posición del siguiente lexema
 	 * 
-	 * @return posiciï¿½n del siguiente token
+	 * @return posición del siguiente token
 	 */
 	public int darIndiceSiguiente() {
 		return indiceSiguiente;
 	}
 
 	/**
-	 * Mï¿½todo que retorna el tipo del token
+	 * Método que retorna el tipo del token
 	 * 
 	 * @return el tipo del token
 	 */

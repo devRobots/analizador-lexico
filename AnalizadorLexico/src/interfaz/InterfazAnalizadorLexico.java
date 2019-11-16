@@ -1,11 +1,11 @@
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id: InterfazAnalizadorLexico.java,v 1.0 2008/08/17 10:39:08 da-romer Exp $
- * Universidad del Quindï¿½o (Bogotï¿½ - Colombia)
- * Programa de Ingenierï¿½a de Sistemas y Computaciï¿½n
+ * Universidad del Quindío (Bogotá - Colombia)
+ * Programa de Ingeniería de Sistemas y Computación
  *
- * Asignatura Teorï¿½a de Lenguajes Formales
- * Ejercicio : Analizador lï¿½xico
+ * Asignatura Teoría de Lenguajes Formales
+ * Ejercicio : Analizador léxico
  * Autor inicial: Leonardo A. Hernï¿½ndez R. - Agosto 17 de 2008, sep 2013
  * Autor:
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -27,152 +27,146 @@ import mundo.AnalizadorLexico;
 import mundo.Token;
 
 /**
- * Ventana principal de la aplicaciï¿½n
+ * Ventana principal de la aplicación
  */
-public class InterfazAnalizadorLexico extends JFrame
-{
+public class InterfazAnalizadorLexico extends JFrame {
 
-    // -----------------------------------------------------------
-    // Atributos de interfaz
-    // -----------------------------------------------------------
+	// -----------------------------------------------------------
+	// Atributos de interfaz
+	// -----------------------------------------------------------
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
-     * Panel donde se muestran los resultados
-     */
-    private PanelEntradaCodigo  panelEntradaCodigo;
+	 * Panel donde se muestran los resultados
+	 */
+	private PanelEntradaCodigo panelEntradaCodigo;
 
-    /**
-     * El diÃ¡logo usado para mostrar los tokens
-     */
-    private DialogoTokens dialogoTokens;
+	/**
+	 * El diálogo usado para mostrar los tokens
+	 */
+	private DialogoTokens dialogoTokens;
 
-    /**
-     * Analizador lÃ©xico
-     */
-    private AnalizadorLexico analizadorLexico;
+	/**
+	 * Analizador léxico
+	 */
+	private AnalizadorLexico analizadorLexico;
 
-    // -----------------------------------------------------------
-    // Constructores
-    // -----------------------------------------------------------
+	// -----------------------------------------------------------
+	// Constructores
+	// -----------------------------------------------------------
 
-    /**
-     * Constructor de la interfaz
-     */
-    public InterfazAnalizadorLexico( )
-    {
-        setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-        setVisible( true );
-        setResizable( false );
-        setTitle( "Analizador LÃ©xico" );
-        setLayout( new GridLayout( 1, 1 ) );
-        analizadorLexico = new AnalizadorLexico( );
-        panelEntradaCodigo = new PanelEntradaCodigo( this );
-        dialogoTokens = new DialogoTokens( );
-        dialogoTokens.setModal( true );
-        add( panelEntradaCodigo );
-        pack( );
-        centrarFrame( );
-    }
+	/**
+	 * Constructor de la interfaz
+	 */
+	public InterfazAnalizadorLexico() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setVisible(true);
+		setResizable(false);
+		setTitle("ANALIZADOR LÉXICO");
+		setLayout(new GridLayout(1, 1));
+		analizadorLexico = new AnalizadorLexico();
+		panelEntradaCodigo = new PanelEntradaCodigo(this);
+		dialogoTokens = new DialogoTokens();
+		dialogoTokens.setModal(true);
+		add(panelEntradaCodigo);
+		pack();
+		centrarFrame();
+	}
 
-    // -----------------------------------------------------------
-    // Mï¿½todos
-    // -----------------------------------------------------------
+	// -----------------------------------------------------------
+	// Mï¿½todos
+	// -----------------------------------------------------------
 
-    /**
-     * Centra el frame en la pantalla segÃºn resoluciÃ³n
-     */
-    private void centrarFrame( )
-    {
-        Dimension screenSize = getToolkit( ).getScreenSize( );
-        int screenWidth = ( int )screenSize.getWidth( );
-        int screenHeight = ( int )screenSize.getHeight( );
-        setLocation( ( ( screenWidth / 2 ) - ( getWidth( ) / 2 ) ),   ( ( screenHeight / 2 ) - ( getHeight( ) / 2 ) ) );
-    }
+	/**
+	 * Centra el frame en la pantalla según resolución
+	 */
+	private void centrarFrame() {
+		Dimension screenSize = getToolkit().getScreenSize();
+		int screenWidth = (int) screenSize.getWidth();
+		int screenHeight = (int) screenSize.getHeight();
+		setLocation(((screenWidth / 2) - (getWidth() / 2)), ((screenHeight / 2) - (getHeight() / 2)));
+	}
 
-    /**
-     * Mï¿½todo usado para ver los tokens del cÃ³digo ingresada
-     * param codigo cÃ³digo fuente que se va a analizar
-     */
-    public void verTokens( String codigo )
-    {
-    	if(!codigo.equals(""))
-    	{
-	    	ArrayList<Token> vectorTokens;
-	    	vectorTokens = analizadorLexico.extraerTokens(codigo);
-	    	ArrayList<String> vectorTokensEditados = new ArrayList<String>( );
-	        Token token;
+	/**
+	 * Método usado para ver los tokens del código ingresada param codigo código
+	 * fuente que se va a analizar
+	 */
+	public void verTokens(String codigo) {
+		if (!codigo.equals("")) {
+			ArrayList<Token> vectorTokens;
+			vectorTokens = analizadorLexico.extraerTokens(codigo);
+			ArrayList<String> vectorTokensEditados = new ArrayList<String>();
+			Token token;
 
-	        for( int i = 0; i < vectorTokens.size( ); i++)
-	        {
-		        token = (Token)vectorTokens.get(i);
-		        vectorTokensEditados.add(token.darDescripcion());
-	        }
+			for (int i = 0; i < vectorTokens.size(); i++) {
+				token = (Token) vectorTokens.get(i);
+				vectorTokensEditados.add(token.darDescripcion());
+			}
 
-	        dialogoTokens.setSize( 450, 200 );
-	        dialogoTokens.cambiarListaTokens( vectorTokensEditados );
-	        dialogoTokens.setLocation( calculaPosicionCentral( this, dialogoTokens ) );
-	        dialogoTokens.setVisible( true );
-        }
-        else
-        {
-            JOptionPane.showMessageDialog( this, "Debe ingresar una codigo fuente primero", "Error", JOptionPane.ERROR_MESSAGE );
-        }
-    }
+			dialogoTokens.setSize(450, 200);
+			dialogoTokens.cambiarListaTokens(vectorTokensEditados);
+			dialogoTokens.setLocation(calculaPosicionCentral(this, dialogoTokens));
+			dialogoTokens.setVisible(true);
+		} else {
+			JOptionPane.showMessageDialog(this, "Debe ingresar una codigo fuente primero", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
 
-    /**
-     * Calcula el punto que indica la posiciÃ³n centrada del frame
-     * @param componentePadre - Ventana Padre del componente - !=null
-     * @param componenteHijo - Ventana Hija del componente - !=null
-     * @return punto - Localizacion en coordinadas x,y del nuevo componente - !=null
-     */
-    private Point calculaPosicionCentral( Component componentePadre, Component componenteHijo )
-    {
-        Dimension tamanoPantalla, tamanoPadre, tamanoHijo;
-        Point localizacionPadre;
+	/**
+	 * Calcula el punto que indica la posición centrada del frame
+	 * 
+	 * @param componentePadre
+	 *            - Ventana Padre del componente - !=null
+	 * @param componenteHijo
+	 *            - Ventana Hija del componente - !=null
+	 * @return punto - Localizacion en coordinadas x,y del nuevo componente - !=null
+	 */
+	private Point calculaPosicionCentral(Component componentePadre, Component componenteHijo) {
+		Dimension tamanoPantalla, tamanoPadre, tamanoHijo;
+		Point localizacionPadre;
 
-        // Centra la ventana y verifica que no sea mayor que la resoluciï¿½n
-        // actual
-        tamanoPantalla = Toolkit.getDefaultToolkit( ).getScreenSize( );
-        int max_y = tamanoPantalla.height;
-        int min_y = 0;
+		// Centra la ventana y verifica que no sea mayor que la resoluciï¿½n
+		// actual
+		tamanoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		int max_y = tamanoPantalla.height;
+		int min_y = 0;
 
-        // TamaÃ±o de la resolucion de la pantalla
-        tamanoPadre = componentePadre.getSize( );
-        localizacionPadre = componentePadre.getLocation( );
-        tamanoHijo = componenteHijo.getSize( );
-        int x = ( tamanoPadre.width - tamanoHijo.width ) / 2 + localizacionPadre.x;
-        int y = tamanoPadre.height + localizacionPadre.y;
+		// TamaÃ±o de la resolucion de la pantalla
+		tamanoPadre = componentePadre.getSize();
+		localizacionPadre = componentePadre.getLocation();
+		tamanoHijo = componenteHijo.getSize();
+		int x = (tamanoPadre.width - tamanoHijo.width) / 2 + localizacionPadre.x;
+		int y = tamanoPadre.height + localizacionPadre.y;
 
-        // Ajuste para abajo
-        if( y + tamanoHijo.height > max_y )
-        {
-            y = max_y - tamanoHijo.height;
-        }
+		// Ajuste para abajo
+		if (y + tamanoHijo.height > max_y) {
+			y = max_y - tamanoHijo.height;
+		}
 
-        // Ajuste para arriba
-        if( y < min_y )
-        {
-            y = 0;
-        }
-        return new Point( x, y );
-    }
+		// Ajuste para arriba
+		if (y < min_y) {
+			y = 0;
+		}
+		return new Point(x, y);
+	}
 
-    // -----------------------------------------------------------------
-    // Main
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
+	// Main
+	// -----------------------------------------------------------------
 
-    /**
-     * Ejecuta la aplicaciÃ³n
-     * @param args Son los parÃ¡metros de la lï¿½nea de comandos. No se utilizan.
-     */
-    public static void main( String[] args )
-    {
-    	InterfazAnalizadorLexico interfaz = new InterfazAnalizadorLexico( );
-        interfaz.setVisible( true );
-    }
+	/**
+	 * Ejecuta la aplicación
+	 * 
+	 * @param args
+	 *            Son los parámetros de la línea de comandos. No se utilizan.
+	 */
+	public static void main(String[] args) {
+		InterfazAnalizadorLexico interfaz = new InterfazAnalizadorLexico();
+		interfaz.setVisible(true);
+	}
 }

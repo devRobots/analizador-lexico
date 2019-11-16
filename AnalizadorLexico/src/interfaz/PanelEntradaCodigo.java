@@ -1,20 +1,19 @@
 /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id$
- * Universidad del Quindï¿½o (Armenia - Colombia)
- * Programa de Ingenierï¿½a de Sistemas y Computaciï¿½n
+ * Universidad del Quindío (Armenia - Colombia)
+ * Programa de Ingeniería de Sistemas y Computación
  *
- * Asignatura: Teorï¿½a de Lenguajes Formales
+ * Asignatura: Teoría de Lenguajes Formales
  * Ejercicio: AnalizadorLexico
- * Autor del cï¿½digo inicial: Leonardo A. Hernï¿½ndez R. - Abril 2014, Agosto 2008, septiembre 2013
+ * Autor del código inicial: Leonardo A. Hernández R. - Abril 2014, Agosto 2008, septiembre 2013
  * Autor:
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
 package interfaz;
 /**
- * Panel para ingresar texto al analizador lï¿½xico
+ * Panel para ingresar texto al analizador léxico
  */
-
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -25,84 +24,83 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+public class PanelEntradaCodigo extends JPanel implements ActionListener {
 
-public class PanelEntradaCodigo extends JPanel implements ActionListener
-{
+	// -----------------------------------------------------------
+	// Constantes
+	// -----------------------------------------------------------
 
-    // -----------------------------------------------------------
-    // Constantes
-    // -----------------------------------------------------------
-
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private static final String VERTOKENS = "VER TOKENS";
 
-    // -----------------------------------------------------------
-    // Atributos de interfaz
-    // -----------------------------------------------------------
+	// -----------------------------------------------------------
+	// Atributos de interfaz
+	// -----------------------------------------------------------
 
-    /**
-     * Ventana principal
-     */
-    private InterfazAnalizadorLexico ventanaPrincipal;
+	/**
+	 * Ventana principal
+	 */
+	private InterfazAnalizadorLexico ventanaPrincipal;
 
-    /**
-     * Etiqueta cï¿½digo
-     */
-    private JLabel etiquetaCodigo;
+	/**
+	 * Etiqueta código
+	 */
+	private JLabel etiquetaCodigo;
 
-     /**
-     * Campo donde se ingresa el cï¿½digo fuente
-     */
-    private JTextField campoCodigo;
+	/**
+	 * Campo donde se ingresa el código fuente
+	 */
+	private JTextField campoCodigo;
 
-     /**
-     * Botï¿½n ver tokens
-     */
-    private JButton botonVerTokens;
+	/**
+	 * Botón ver tokens
+	 */
+	private JButton botonVerTokens;
 
-    // -----------------------------------------------------------
-    // Constructores
-    // -----------------------------------------------------------
+	// -----------------------------------------------------------
+	// Constructores
+	// -----------------------------------------------------------
 
-    /**
-     * Constructor del panel.
-     * @param principal Ventana principal. principal != null.
-     */
-    public PanelEntradaCodigo( InterfazAnalizadorLexico principal )
-    {
-        ventanaPrincipal = principal;
-        setLayout( new GridLayout( 1, 3 ) );
+	/**
+	 * Constructor del panel.
+	 * 
+	 * @param principal
+	 *            Ventana principal. principal != null.
+	 */
+	public PanelEntradaCodigo(InterfazAnalizadorLexico principal) {
+		ventanaPrincipal = principal;
+		setLayout(new GridLayout(1, 3));
 
-        etiquetaCodigo = new JLabel( "CÃ³digo fuente que se va a analizar: " );
-        campoCodigo = new JTextField( 20 );
-        botonVerTokens = new JButton( "Ver tokens" );
-        botonVerTokens.addActionListener( this );
-        botonVerTokens.setActionCommand( VERTOKENS );
+		etiquetaCodigo = new JLabel("Código fuente que se va a analizar: ");
+		campoCodigo = new JTextField(20);
+		botonVerTokens = new JButton("Ver tokens");
+		botonVerTokens.addActionListener(this);
+		botonVerTokens.setActionCommand(VERTOKENS);
 
-        add( etiquetaCodigo );
-        add( campoCodigo );
-        add( botonVerTokens );
-    }
+		add(etiquetaCodigo);
+		add(campoCodigo);
+		add(botonVerTokens);
+	}
 
-    // -----------------------------------------------------------
-    // Mï¿½todos
-    // -----------------------------------------------------------
+	// -----------------------------------------------------------
+	// Mï¿½todos
+	// -----------------------------------------------------------
 
-     /**
-     * Responde ante las acciones en el panel.
-     * @param e Evento que generï¿½ la acciï¿½n.
-     */
-    public void actionPerformed( ActionEvent e )
-    {
-//        if( e.getActionCommand( ) == VERTOKENS )
-      if( e.getActionCommand( ).equals(VERTOKENS)  )
-        {
-        	ventanaPrincipal.verTokens(campoCodigo.getText());
-        }
+	/**
+	 * Responde ante las acciones en el panel.
+	 * 
+	 * @param e
+	 *            Evento que genera la acción.
+	 */
+	public void actionPerformed(ActionEvent e) {
+		// if( e.getActionCommand( ) == VERTOKENS )
+		if (e.getActionCommand().equals(VERTOKENS)) {
+			ventanaPrincipal.verTokens(campoCodigo.getText());
+		}
 
-    }
+	}
 }
